@@ -1,0 +1,36 @@
+precision mediump float;
+
+uniform vec2 u_resolution;
+uniform float u_granularity;
+uniform float u_scale;
+uniform mat2 u_qseed;
+uniform vec2 u_lseed;
+uniform vec4 u_rseed;
+
+%DIM%
+%MISC%
+%MAP%
+%SINERAND%
+
+#define rand sinfract
+
+%RAND%
+%CURVES%
+
+#define CURVE CURVE3
+
+%PERLIN%
+
+#define NOISE perlinGradient
+
+void main() {
+  vec2 UV = gl_FragCoord.xy, uv = UV, uvi;
+  if(u_granularity > 1.0) {
+    uv = floor(UV / u_granularity) * u_granularity;
+    uvi = (UV - uv) / u_granularity;
+  }
+  uv /= u_resolution;
+  uv *= u_scale;
+  vec3 uv3 = vec3(uv, u_time * u_time_scale);
+  gl_FragColor = vec4(vec3(NOISE(uv3, u_qseed, u_lseed, vec3(0.0, 0.0, 10.0), u_rseed) * 0.5 + 0.5), 1.0);
+}

@@ -1,0 +1,42 @@
+html, body, #app {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+#app {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+}
+aside {
+    flex-grow: 0;
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .shader-code {
+        flex-grow: 1;
+        overflow: auto;
+    }
+}
+#g-tabs {
+    flex-grow: 1;
+    flex-shrink: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+.g-tab-headers {
+    flex-grow: 0;
+}
+.g-tab {
+    background: #fdd;
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    canvas {
+        border: 2px outset #ddd;
+    }
+    overflow: auto;
+}
